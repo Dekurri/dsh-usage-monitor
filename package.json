@@ -1,6 +1,6 @@
 {
   "name": "dsh-usage-monitor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Usage and runtime monitor for DeepSeek Harness: token totals, cost estimates, cache hit rate, per-session and per-model breakdowns, plus live CPU/GPU/memory/uptime sampling.",
   "keywords": [
@@ -39,6 +39,7 @@
     "locale/*.json",
     "icon.svg",
     "README.md",
+    "INSTALL.md",
     "LICENSE",
     "CONTRACT.md"
   ],

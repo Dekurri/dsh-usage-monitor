@@ -54,18 +54,34 @@
 
 ## 安装
 
-需要 DSH 0.2.x（Host 提供 `sessionQuery` / `webServer`；`deepseekAccount`、`llm` 是可选服务）。
+需要 **DSH 0.2.x**（Host 提供 `sessionQuery` / `webServer`；`deepseekAccount`、`llm` 是可选服务——缺失时对应卡片显示「不可用」，
+其余面板照常）。插件零第三方依赖，不需要 `npm install`。
 
-```sh
-git clone https://github.com/Dekurri/dsh-usage-monitor.git
-```
+**三条路径任选**（完整步骤、排错与验证清单见 [`INSTALL.md`](./INSTALL.md)）：
 
-然后在 DSH 里用**插件管理器安装本目录的绝对路径**（Host `plugin_manager` → `install_bundle`，target 传目录绝对路径）。
-安装是 symlink 方式，之后 `git pull` 即更新；重新启用插件（禁用再启用）即可让 Host 侧代码生效，浏览器端刷新页面即可。
+1. **下载即用（推荐给普通用户）**：从 [Releases](https://github.com/Dekurri/dsh-usage-monitor/releases) 下载
+   `dsh-usage-monitor-<版本>.tgz` → 解压到一个长期目录 → 在 DSH 插件管理器里
+   `install_bundle`，`target` 传该目录的**绝对路径** → 刷新页面。
+2. **源码安装（可 `git pull` 升级）**：`git clone https://github.com/Dekurri/dsh-usage-monitor.git`，
+   然后把仓库目录的绝对路径交给 `install_bundle`。
+3. **交给 AI 助手**：把下面这段直接发给你的 DSH 助手。
 
-卸载：在插件管理器里移除 `dsh-usage-monitor`。
+````text
+把 https://github.com/Dekurri/dsh-usage-monitor 装进当前 DSH profile 并验证：
+1. git clone 到 "<绝对路径>"（或下载 Release tgz 解压，得到含 package.json 的目录）
+2. plugin_manager({ action:"install_bundle", target:"<插件目录绝对路径>" })
+   → 必须 application === "applied"；若 failedAt === "registry"（网络抖动）原样重试一次。
+   不要手工改 profile 的 package.json / cordis.patch.yml。
+3. cordis_inspect_query({ platform:"client", provider:"Slots", method:"listSubTree",
+                           input:{ root:"sidebar.panellist" } })
+   → occupants 中应有 { registrant:"usage-monitor", id:"usage-monitor", active:true }
+4. GET <DSH Web 地址>/usage-monitor/api/overview?range=today  → 200 且含 kpi
+   GET <DSH Web 地址>/usage-monitor/api/live                   → 200 且含 host.cpuPercent
+5. 报告已装版本、实际插件目录、上面两项校验结果，并提醒用户刷新页面。
+````
 
-也可以下载 [Releases](https://github.com/Dekurri/dsh-usage-monitor/releases) 里的 `.tgz`，解压成目录后按同样方式安装。
+安装结果里 `application` 必须是 `"applied"`（`failed` + `failedAt: "registry"` 通常是网络抖动，重试即可）。
+卸载：插件管理器里移除 `dsh-usage-monitor`。
 
 ## 配置
 
@@ -144,6 +160,7 @@ lib/fx.js             央行中间价四级降级与缓存
 lib/client.js         浏览器产物（React 组件注册到 sidebar.panellist / main）
 cordis.patch.yml      bundle patch（含全部默认配置）
 locale/{zh,en}.json   插件显示元数据
+INSTALL.md            人类 / AI 助手通用安装与排错说明
 tools/                可复跑的独立校验脚本
 ```
 
