@@ -1,0 +1,40 @@
+# dsh-usage-monitor bundle patch.
+# A single row inserts the plugin into the profile's loader tree. `config` holds
+# the tunables a user may override in the profile's own cordis.patch.yml; every
+# key below has a matching in-code default, so the row may also be inserted
+# without a config block at all.
+- insert:
+    - id: usage-monitor
+      name: dsh-usage-monitor
+      config:
+        # CNY is the authoritative currency: the built-in price table is in yuan
+        # per million tokens and every cost is stored/settled in CNY. This rate
+        # (1 USD = N CNY) is now only the FINAL FALLBACK / offline value: the Host
+        # polls the PBOC-authorized CFETS USD/CNY central parity rate at runtime and
+        # uses that for the display-only dollar figure. It never re-prices history.
+        fx:
+          USDCNY: 7.1
+        # v4: how often the Host re-fetches the CFETS central parity rate (ms).
+        # The parity is published around 09:15 Beijing time on trading days, so a
+        # 30-minute poll is plenty; failures keep the previous value and mark it stale.
+        fxRefreshIntervalMs: 1800000
+        # v4: override the on-disk exchange-rate cache; defaults to
+        # $DSH_HOME/usage-monitor/fx.json when omitted.
+        # fxFile: C:\Users\<用户名>\.dsh\usage-monitor\fx.json
+        # Interval of the Host-side system sampler (CPU/GPU/memory ring buffer).
+        sampleIntervalMs: 2000
+        # Points kept in each live sparkline history (oldest first).
+        liveHistoryPoints: 60
+        # Background re-scan period for persisted sessions whose live feed is quiet.
+        rescanIntervalMs: 60000
+        # v2: how often the account probe re-reads the platform wallet balance.
+        accountRefreshIntervalMs: 60000
+        # v2: override the on-disk ledger / account-scrape caches. Both default to
+        # $DSH_HOME/usage-monitor/{llm-ledger,account}.json when omitted.
+        # ledgerFile: C:\Users\<用户名>\.dsh\usage-monitor\llm-ledger.json
+        # accountFile: C:\Users\<用户名>\.dsh\usage-monitor\account.json
+        # v5: extra Chinese public holidays (Beijing calendar days, 'YYYY-MM-DD') treated as
+        # off-peak all day, on top of the built-in 2025/2026 table. Add new-year days here when
+        # the official schedule is published before the plugin ships an update.
+        # pricingHolidays:
+        #   - '2027-01-01'

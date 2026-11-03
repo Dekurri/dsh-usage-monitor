@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Usage Monitor">
+  <defs>
+    <linearGradient id="um-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b2a4a"/>
+      <stop offset="1" stop-color="#0d1524"/>
+    </linearGradient>
+    <linearGradient id="um-bar" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#2f7cf6"/>
+      <stop offset="1" stop-color="#7ad0ff"/>
+    </linearGradient>
+    <linearGradient id="um-bar2" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#1f9d6b"/>
+      <stop offset="1" stop-color="#6ee7b7"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#um-bg)"/>
+  <rect x="2.75" y="2.75" width="58.5" height="58.5" rx="13.25" fill="none" stroke="#ffffff" stroke-opacity="0.14" stroke-width="1.5"/>
+  <g>
+    <rect x="14" y="34" width="7" height="16" rx="2" fill="url(#um-bar)"/>
+    <rect x="25" y="26" width="7" height="24" rx="2" fill="url(#um-bar)"/>
+    <rect x="36" y="30" width="7" height="20" rx="2" fill="url(#um-bar2)"/>
+    <rect x="47" y="20" width="7" height="30" rx="2" fill="url(#um-bar)"/>
+  </g>
+  <path d="M12 44 L19 44 L23 37 L28 44 L33 44 L37 41 L41 44 L52 44"
+        fill="none" stroke="#ffd166" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.95"/>
+  <circle cx="51" cy="15" r="3.2" fill="#6ee7b7"/>
+  <circle cx="51" cy="15" r="3.2" fill="none" stroke="#6ee7b7" stroke-opacity="0.45" stroke-width="3"/>
+</svg>

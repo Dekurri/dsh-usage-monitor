@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  static:
+    name: syntax + static checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Host 侧：只做语法检查（其余 checker 需要真实会话日志，跑不了）
+      - name: Host syntax
+        run: |
+          node --check index.js
+          for f in lib/*.js; do node --check "$f"; done
+
+      # 浏览器产物：locale 完整性、禁用依赖、loader 结构、主题 token 等纯静态检查
+      - name: Client static self-check
+        run: node tools/ui-selfcheck.mjs
+
+      # 纯函数单测（不依赖真实数据）
+      - name: Pure-function checks
+        run: |
+          node tools/smoke-fold.mjs
+          node tools/smoke-system.mjs

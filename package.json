@@ -1,0 +1,61 @@
+{
+  "name": "dsh-usage-monitor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Usage and runtime monitor for DeepSeek Harness: token totals, cost estimates, cache hit rate, per-session and per-model breakdowns, plus live CPU/GPU/memory/uptime sampling.",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "usage",
+    "tokens",
+    "cost",
+    "monitoring",
+    "dashboard",
+    "cordis"
+  ],
+  "homepage": "https://github.com/Dekurri/dsh-usage-monitor#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dekurri/dsh-usage-monitor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dekurri/dsh-usage-monitor/issues"
+  },
+  "author": "Dekurri",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./lib/client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "lib/**",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "LICENSE",
+    "CONTRACT.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar"
+      ]
+    }
+  }
+}

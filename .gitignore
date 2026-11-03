@@ -1,0 +1,52 @@
+# ── 依赖与构建产物 ────────────────────────────────────────────────
+node_modules/
+dist/
+build/
+*.tgz
+*.tar.gz
+*.zip
+
+# ── 运行时/本地数据（绝不入库） ───────────────────────────────────
+# 插件的落盘缓存默认在 $DSH_HOME/usage-monitor/，不在仓库内；
+# 下面这些是本地调试时可能出现在包目录里的临时文件。
+.tmp/
+.tmp-*/
+*.tmp
+cache.json
+account.json
+llm-ledger.json
+fx.json
+bill-history-cache.json
+.dshw-usage.json
+sessions/
+*.jsonl
+*.jsonl.zstd
+
+# ── 校验脚本的输出 ────────────────────────────────────────────────
+tools/.tmp/
+*.report.json
+*.out.log
+
+# ── 密钥与本地环境 ────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+
+# ── 编辑器 / 操作系统 ─────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.tmp
+
+# ── 日志 ──────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+pnpm-debug.log*

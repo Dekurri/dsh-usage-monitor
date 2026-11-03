@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Usage Monitor",
+    "description": "Aggregates token usage, cost estimates, cache hit rate and per-session/per-model statistics across every session, with live CPU, GPU, memory and uptime monitoring."
+  }
+}
